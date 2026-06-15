@@ -817,9 +817,9 @@
 
     <div class="content">
       <div class="page active" id="page-accueil">
-        <!-- DJADJA PRÉSENTATION -->
+        <!-- DJADJA PRÉSENTATION SIMPLE -->
         <div style="background: linear-gradient(135deg, #CCFBF1, #A5F3FC); border-radius: 16px; padding: 16px; margin: 12px; text-align: center;">
-          <p style="font-size: 12px; font-weight: 700; color: #0891B2; margin-bottom: 8px;">Salut ! Je suis Djadja ! 🦋</p>
+          <p style="font-size: 12px; font-weight: 700; color: #0891B2; margin-bottom: 8px;">Je suis ta mascotte papillon ! 🦋 Je suis ici pour te guider tout au long de ton voyage !</p>
           
           <!-- Papillons dans différentes positions -->
           <div style="display: flex; justify-content: space-around; align-items: center; margin: 12px 0;">
@@ -827,18 +827,14 @@
             <span style="font-size: 40px; animation: flutter 2s infinite;">🦋</span>
             <span style="font-size: 32px; transform: rotate(-20deg);">🦋</span>
           </div>
-          
-          <p style="font-size: 10px; color: #0891B2; line-height: 1.5; margin: 0;">Je suis ta mascotte papillon ! 🦋 Je suis ici pour te guider tout au long de ton voyage ! Et ne te trompe pas : ma copine Darya la tortue 🐢 (en bas à droite) elle répond à TOUTES tes questions ! Appuie sur elle ! ✨</p>
-          
-          <!-- Plus de papillons -->
-          <div style="display: flex; justify-content: center; gap: 8px; margin-top: 12px;">
-            <span style="font-size: 24px; transform: scaleX(-1) rotate(45deg);">🦋</span>
-            <span style="font-size: 28px;">🦋</span>
-            <span style="font-size: 24px; transform: rotate(-45deg);">🦋</span>
-          </div>
         </div>
 
-        <p class="section-title">Partage ton émotion</p>
+        <p class="section-title" style="font-style: italic; text-align: center;">Partage ton émotion 💜</p>
+        
+        <!-- MOTS D'ENCOURAGEMENT -->
+        <div id="emotionMessage" style="background: linear-gradient(135deg, #FEE2E2, #FCE7F3); border-radius: 12px; padding: 12px; margin: 12px; text-align: center; display: none;">
+          <p id="emotionMessageText" style="font-size: 11px; color: #EC4899; font-weight: 600; margin: 0;"></p>
+        </div>
         <div class="emotions-grid">
           <button class="emotion-card" data-emotion="joyeuse" data-emoji="😄" onclick="handleEmotion('joyeuse', '😄')" style="color: #FBBF24;"><span>😄</span>Joyeuse</button>
           <button class="emotion-card" data-emotion="triste" data-emoji="😢" onclick="handleEmotion('triste', '😢')" style="color: #60A5FA;"><span>😢</span>Triste</button>
@@ -1766,6 +1762,9 @@
       }
       
       const message = emotionMessages[emotion] || "Merci pour ton partage ! 💜";
+      document.getElementById('emotionMessage').style.display = 'block';
+      document.getElementById('emotionMessageText').textContent = message;
+      
       localStorage.setItem('currentEmotion', emotion);
       localStorage.setItem('emotionMessage', message);
       
