@@ -828,7 +828,7 @@
             <span style="font-size: 32px; transform: rotate(-20deg);">🦋</span>
           </div>
           
-          <p style="font-size: 10px; color: #0891B2; line-height: 1.5; margin: 0;">Je suis ta tortue amie magique ! 💜 Je suis ici pour répondre à TOUTES tes questions sur la puberté, les règles, les hormones, l'amitié, la confiance... Appuie sur moi (en bas à droite) et posez n'importe quelle question ! Je suis là pour toi ! ✨</p>
+          <p style="font-size: 10px; color: #0891B2; line-height: 1.5; margin: 0;">Je suis ta mascotte papillon ! 🦋 Je suis ici pour te guider tout au long de ton voyage ! Et ne te trompe pas : ma copine Darya la tortue 🐢 (en bas à droite) elle répond à TOUTES tes questions ! Appuie sur elle ! ✨</p>
           
           <!-- Plus de papillons -->
           <div style="display: flex; justify-content: center; gap: 8px; margin-top: 12px;">
@@ -1760,14 +1760,12 @@
 
     function handleEmotion(emotion, emoji) {
       const card = document.querySelector(`[data-emotion="${emotion}"]`);
-      document.querySelectorAll('.emotion-card').forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
+      if (card) {
+        document.querySelectorAll('.emotion-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+      }
       
-      const message = emotionMessages[emotion];
-      document.getElementById('djadjaHeader').classList.add('active');
-      document.getElementById('emotionMessage').classList.add('active');
-      document.getElementById('emotionMessageText').textContent = message;
-      
+      const message = emotionMessages[emotion] || "Merci pour ton partage ! 💜";
       localStorage.setItem('currentEmotion', emotion);
       localStorage.setItem('emotionMessage', message);
       
