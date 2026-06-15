@@ -881,7 +881,7 @@
 
       <!-- HISTOIRE 1 -->
       <div class="page" id="page-histoire1">
-        <button onclick="switchPage('histoires')" style="background: none; border: none; font-size: 18px; padding: 8px; cursor: pointer;">← Retour</button>
+        <button onclick="switchPage('histoires', document.querySelectorAll('.nav-item')[2])" style="background: none; border: none; font-size: 18px; padding: 8px; cursor: pointer;">← Retour</button>
         <p class="section-title">🤕 L'acné de Mila</p>
         <div style="padding: 12px; line-height: 1.6;">
           <div style="text-align: center; font-size: 48px; margin: 16px 0;">🤕</div>
@@ -909,7 +909,7 @@
 
       <!-- HISTOIRE 2 -->
       <div class="page" id="page-histoire2">
-        <button onclick="switchPage('histoires')" style="background: none; border: none; font-size: 18px; padding: 8px; cursor: pointer;">← Retour</button>
+        <button onclick="switchPage('histoires', document.querySelectorAll('.nav-item')[2])" style="background: none; border: none; font-size: 18px; padding: 8px; cursor: pointer;">← Retour</button>
         <p class="section-title">💇 Les cheveux de Zoé</p>
         <div style="padding: 12px; line-height: 1.6;">
           <div style="text-align: center; font-size: 48px; margin: 16px 0;">💇</div>
@@ -937,7 +937,7 @@
 
       <!-- HISTOIRE 3 -->
       <div class="page" id="page-histoire3">
-        <button onclick="switchPage('histoires')" style="background: none; border: none; font-size: 18px; padding: 8px; cursor: pointer;">← Retour</button>
+        <button onclick="switchPage('histoires', document.querySelectorAll('.nav-item')[2])" style="background: none; border: none; font-size: 18px; padding: 8px; cursor: pointer;">← Retour</button>
         <p class="section-title">💔 Emma face au harcèlement</p>
         <div style="padding: 12px; line-height: 1.6;">
           <div style="text-align: center; font-size: 48px; margin: 16px 0;">💔</div>
@@ -965,7 +965,7 @@
 
       <!-- HISTOIRE 4 -->
       <div class="page" id="page-histoire4">
-        <button onclick="switchPage('histoires')" style="background: none; border: none; font-size: 18px; padding: 8px; cursor: pointer;">← Retour</button>
+        <button onclick="switchPage('histoires', document.querySelectorAll('.nav-item')[2])" style="background: none; border: none; font-size: 18px; padding: 8px; cursor: pointer;">← Retour</button>
         <p class="section-title">⚖️ Léa et les stéréotypes</p>
         <div style="padding: 12px; line-height: 1.6;">
           <div style="text-align: center; font-size: 48px; margin: 16px 0;">⚖️</div>
@@ -994,7 +994,7 @@
 
       <!-- HISTOIRE 5 -->
       <div class="page" id="page-histoire5">
-        <button onclick="switchPage('histoires')" style="background: none; border: none; font-size: 18px; padding: 8px; cursor: pointer;">← Retour</button>
+        <button onclick="switchPage('histoires', document.querySelectorAll('.nav-item')[2])" style="background: none; border: none; font-size: 18px; padding: 8px; cursor: pointer;">← Retour</button>
         <p class="section-title">🌟 La confiance de Nina</p>
         <div style="padding: 12px; line-height: 1.6;">
           <div style="text-align: center; font-size: 48px; margin: 16px 0;">🌟</div>
@@ -1678,7 +1678,11 @@
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.getElementById('page-' + page).classList.add('active');
       document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+      
       if (btn) btn.classList.add('active');
+      
+      // Ajouter historique pour le bouton retour du téléphone
+      history.pushState({ page }, '', '#' + page);
       
       if (page === 'accueil') {
         document.getElementById('greeting').style.display = 'block';
@@ -1693,6 +1697,19 @@
         displayProfile();
       }
     }
+
+    // Gérer le bouton retour du téléphone
+    window.addEventListener('popstate', (e) => {
+      if (e.state && e.state.page) {
+        const page = e.state.page;
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById('page-' + page).classList.add('active');
+        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+        
+        const navBtn = document.querySelector(`[onclick*="switchPage('${page}'"]`);
+        if (navBtn) navBtn.classList.add('active');
+      }
+    });
 
     function pickProduct(product) {
       selectedProduct = product;
