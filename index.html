@@ -1378,15 +1378,9 @@
         </div>
       </div>
     </div>
-
     <!-- PAGE QUIZ -->
     <div class="page" id="page-quiz">
-      <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px;">
-        <button onclick="switchPage('explorer', document.querySelectorAll('.nav-item')[1])" style="background: none; border: none; font-size: 24px; cursor: pointer; padding: 8px;">← Retour</button>
-        <p class="section-title" style="margin: 0; flex: 1; text-align: center;">🎮 Quiz</p>
-        <div style="width: 40px;"></div>
-      </div>
-
+      <p class="section-title">🎮 Quiz</p>
       <div id="quizContent" style="padding: 12px;">
         <!-- ÉTAT INITIAL: Sélection quiz -->
         <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; padding: 24px; margin-bottom: 20px; text-align: center;">
@@ -1398,19 +1392,33 @@
         <button class="btn-secondary" onclick="startQuiz('hormones')" style="width: calc(100% - 24px); padding: 20px 12px; margin: 12px; background: linear-gradient(135deg, #EDE9FE 0%, #E9D5FF 100%); color: #7C3AED; font-weight: 700; font-size: 14px; box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2); border: 2px solid #DDD6FE; transition: all 0.3s;">
           <span style="font-size: 24px; display: block; margin-bottom: 8px;">💜</span>
           Quiz Hormones
-          <span style="font-size: 11px; display: block; margin-top: 4px; opacity: 0.7;">5 questions aléatoires</span>
+          <span style="font-size: 11px; display: block; margin-top: 4px; opacity: 0.7;">5 questions</span>
         </button>
 
         <!-- QUIZ HYGIÈNE -->
         <button class="btn-secondary" onclick="startQuiz('hygiene')" style="width: calc(100% - 24px); padding: 20px 12px; margin: 12px; background: linear-gradient(135deg, #CCFBF1 0%, #99F6E4 100%); color: #0891B2; font-weight: 700; font-size: 14px; box-shadow: 0 4px 12px rgba(8, 145, 178, 0.2); border: 2px solid #A5F3FC; transition: all 0.3s;">
           <span style="font-size: 24px; display: block; margin-bottom: 8px;">✨</span>
           Quiz Hygiène
-          <span style="font-size: 11px; display: block; margin-top: 4px; opacity: 0.7;">6 questions aléatoires</span>
+          <span style="font-size: 11px; display: block; margin-top: 4px; opacity: 0.7;">6 questions</span>
+        </button>
+
+        <!-- QUIZ PUBERTÉ -->
+        <button class="btn-secondary" onclick="startQuiz('puberte')" style="width: calc(100% - 24px); padding: 20px 12px; margin: 12px; background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%); color: #EA580C; font-weight: 700; font-size: 14px; box-shadow: 0 4px 12px rgba(234, 88, 12, 0.2); border: 2px solid #FFEDD5; transition: all 0.3s;">
+          <span style="font-size: 24px; display: block; margin-bottom: 8px;">⚡</span>
+          Quiz Puberté
+          <span style="font-size: 11px; display: block; margin-top: 4px; opacity: 0.7;">6 questions</span>
+        </button>
+
+        <!-- QUIZ RÈGLES -->
+        <button class="btn-secondary" onclick="startQuiz('regles')" style="width: calc(100% - 24px); padding: 20px 12px; margin: 12px; background: linear-gradient(135deg, #FEE2E2 0%, #FECDD3 100%); color: #DC2626; font-weight: 700; font-size: 14px; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2); border: 2px solid #FECDD3; transition: all 0.3s;">
+          <span style="font-size: 24px; display: block; margin-bottom: 8px;">🩸</span>
+          Quiz Règles
+          <span style="font-size: 11px; display: block; margin-top: 4px; opacity: 0.7;">6 questions</span>
         </button>
 
         <!-- INFO -->
         <div style="background: linear-gradient(135deg, #FEF9C3, #FDE047); border-radius: 12px; padding: 16px; margin-top: 20px; text-align: center; border-left: 4px solid #FBBF24;">
-          <p style="font-size: 11px; color: #854D0E; margin: 0; font-weight: 600; line-height: 1.6;">💡 <strong>ASTUCE :</strong> Chaque question = réponse unique ! La même question peut revenir avec des réponses différentes. Essaie autant que tu veux ! Aucune note, juste pour apprendre ! 🚀</p>
+          <p style="font-size: 11px; color: #854D0E; margin: 0; font-weight: 600; line-height: 1.6;">💡 Chaque question = réponse aléatoire ! Essaie autant que tu veux ! 🚀</p>
         </div>
       </div>
     </div>
@@ -1511,8 +1519,82 @@
       </div>
     </div>
 
+    <!-- PAGE PUBERTÉ -->
+    <div class="page" id="page-puberte">
+      <p class="section-title">⚡ La Puberté - Ton Moment De Transformation !</p>
+      
+      <div style="padding: 12px;">
+        <!-- INTRO -->
+        <div style="background: linear-gradient(135deg, #FFF7ED, #FFEDD5); border-radius: 12px; padding: 16px; margin-bottom: 12px;">
+          <p style="font-size: 12px; color: #EA580C; margin: 0; font-weight: 600; line-height: 1.6;">La PUBERTÉ c'est quoi ? C'est LE GRAND CHANGEMENT ! 🚀 Ton corps se transforme d'enfant en jeune adulte pendant 4-10 ans. Les hormones disent à tes organes « C'est parti ! » et BOOM = cheveux, seins, règles, émotions, tout change ! C'est NORMAL et c'est MAGNIFIQUE ! ✨</p>
+        </div>
 
-    <div class="djadja-popup" id="djadjaPopup">
+        <!-- CROISSANCE -->
+        <div style="background: var(--white); border-left: 4px solid #F97316; border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(249, 115, 22, 0.1);">
+          <p style="font-size: 13px; font-weight: 700; color: #F97316; margin: 0 0 8px 0;">📏 Ta croissance accélère</p>
+          <p style="font-size: 11px; color: var(--text); margin: 0 0 8px 0; line-height: 1.5;">Tu vas grandir VITE ! 🌱 Entre 8-14 ans, tu peux grandir de 10-15 cm. C'est dingue ! Tu auras peut-être des douleurs dans les genoux ou chevilles = c'est les « douleurs de croissance ». Normal ! Ça passe avec du repos et du stretching.</p>
+        </div>
+
+        <!-- SEINS -->
+        <div style="background: var(--white); border-left: 4px solid #EC4899; border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(236, 72, 153, 0.1);">
+          <p style="font-size: 13px; font-weight: 700; color: #EC4899; margin: 0 0 8px 0;">🌸 Tes seins se développent</p>
+          <p style="font-size: 11px; color: var(--text); margin: 0 0 8px 0; line-height: 1.5;">D'abord = petits bourgeons (un peu sensibles). Puis ils grandissent progressivement. Chacune grandit à son rythme ! Tailles différentes = NORMAL ! Les deux ne poussent pas à la même vitesse. C'est ok ! Met un soutien-gorge confortable quand tu veux (pas obligatoire au début). Certaines ont mal = c'est l'hormone qui agit ! Ça passe.</p>
+        </div>
+
+        <!-- PILOSITÉ -->
+        <div style="background: var(--white); border-left: 4px solid #8B5CF6; border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(139, 92, 246, 0.1);">
+          <p style="font-size: 13px; font-weight: 700; color: #8B5CF6; margin: 0 0 8px 0;">💇 Des cheveux PARTOUT !</p>
+          <p style="font-size: 11px; color: var(--text); margin: 0; line-height: 1.5;">Poils sous les bras, jambes, pubis = c'est LA puberté ! Ils arrivent d'abord au pubis et sous les bras. Tu les gardes ou tu les enlèves = TON choix ! Rasage, cire, crème dépilante, épilateur = à toi de voir. Les poils publiens protègent ta zone intime. C'est pas « dégeu » = c'est NATUREL ! 🌿</p>
+        </div>
+
+        <!-- ODEUR & ACNÉ -->
+        <div style="background: var(--white); border-left: 4px solid #06B6D4; border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(6, 182, 212, 0.1);">
+          <p style="font-size: 13px; font-weight: 700; color: #06B6D4; margin: 0 0 8px 0;">💦 Plus de sueur + Acné (hélas!)</p>
+          <p style="font-size: 11px; color: var(--text); margin: 0; line-height: 1.5;">Les hormones activent les glandes de sueur = tu sens plus mauvais ! Douche 1-2x par jour. Utilise un bon déodorant. L'acné ? C'est les hormones qui obstruent tes pores. Lave-toi bien, sois douce avec ta peau. Si c'est grave = demande à un dermato. Ça va passer ! 🧴</p>
+        </div>
+
+        <!-- ÉMOTIONS & CONSEIL -->
+        <div style="background: #FEF9C3; border-radius: 8px; padding: 12px; margin-top: 12px;">
+          <p style="font-size: 11px; font-weight: 600; color: #854D0E; margin: 0; line-height: 1.6;">😭😊 Tes émotions vont devenir FOLLES ! Rires, larmes, colère en 2 secondes = c'est normal ! Les hormones gèrent tes sentiments. Respire, parle à quelqu'un, bouge ! La puberté c'est pas un problème = c'est TOI qui deviens plus mature ! 💜✨</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE RÈGLES -->
+    <div class="page" id="page-regles">
+      <p class="section-title">🩸 Les Règles - Ton Cycle Mensuel !</p>
+      
+      <div style="padding: 12px;">
+        <!-- INTRO -->
+        <div style="background: linear-gradient(135deg, #FEE2E2, #FECDD3); border-radius: 12px; padding: 16px; margin-bottom: 12px;">
+          <p style="font-size: 12px; color: #DC2626; margin: 0; font-weight: 600; line-height: 1.6;">Les RÈGLES c'est quoi ? C'est le sang qui sort de ton vagin pendant 3-7 jours chaque mois ! 🩸 Ça veut dire que ton corps prépare ton utérus pour une possible grossesse. Pas de bébé = l'utérus se nettoie en évacuant sa paroi interne = les règles ! C'est NATUREL, c'est SAIN, c'est MAGNIFIQUE ! 💪</p>
+        </div>
+
+        <!-- AVANT RÈGLES -->
+        <div style="background: var(--white); border-left: 4px solid #A78BFA; border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(167, 139, 250, 0.1);">
+          <p style="font-size: 13px; font-weight: 700; color: #8B5CF6; margin: 0 0 8px 0;">📅 Avant les règles (Syndrome Prémenstruel)</p>
+          <p style="font-size: 11px; color: var(--text); margin: 0 0 8px 0; line-height: 1.5;">Une semaine AVANT les règles, tu peux sentir : gonflement des seins (ouch!), fatigue EXTRÊME, fringales bizarres, mauvaise humeur, acné... C'est la PROGESTÉRONE qui monte ! Ça passe quand les règles arrivent. Dors plus, bouge, sois douce avec toi-même ! 💜</p>
+        </div>
+
+        <!-- PENDANT RÈGLES -->
+        <div style="background: var(--white); border-left: 4px solid #EC4899; border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(236, 72, 153, 0.1);">
+          <p style="font-size: 13px; font-weight: 700; color: #EC4899; margin: 0 0 8px 0;">🩸 Pendant les règles (3-7 jours)</p>
+          <p style="font-size: 11px; color: var(--text); margin: 0 0 8px 0; line-height: 1.5;">Du sang sort = c'est normal ! Le flux change : lourd (jour 1-3), puis léger. Protèges-slip, serviettes, tampons, cup menstruelle = à toi de choisir ! Change toutes les 4-6 heures. Tu peux avoir mal au ventre = les crampes (c'est l'utérus qui se contracting pour évacuer). Chauffe, repos, paracétamol aide ! Tu peux faire sport, nager, tout ! 🏃‍♀️</p>
+        </div>
+
+        <!-- APRÈS RÈGLES -->
+        <div style="background: var(--white); border-left: 4px solid #06B6D4; border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(6, 182, 212, 0.1);">
+          <p style="font-size: 13px; font-weight: 700; color: #06B6D4; margin: 0 0 8px 0;">✨ Après les règles (1-2 semaines)</p>
+          <p style="font-size: 11px; color: var(--text); margin: 0; line-height: 1.5;">Après les règles = tu peux sentir une GROSSE énergie ! Tu bouges plus, tu as meilleure humeur. C'est l'OVULATION qui arrive ! Ton énergie est au MAXIMUM. Profite-en pour faire du sport, des choses ! Puis vient une phase plus calme avant le syndrome prémenstruel. C'est le CYCLE ! 🔄</p>
+        </div>
+
+        <!-- CONSEIL FINAL -->
+        <div style="background: #FEF9C3; border-radius: 8px; padding: 12px; margin-top: 12px;">
+          <p style="font-size: 11px; font-weight: 600; color: #854D0E; margin: 0; line-height: 1.6;">💪 Les règles = ta SUPERPOWER ! Elles te montrent que tu es une jeune femme en bonne santé ! Pas honteux, pas « dégeu » = c'est TOI ! Parle à ta mère/sœur/copines, pose des questions. Tu es forte ! 🦸‍♀️🩸✨</p>
+        </div>
+      </div>
+    </div>
+
       <div class="djadja-popup-emoji" id="djadjaEmoji">🦋</div>
       <div class="djadja-popup-message" id="djadjaMessage">Salut !</div>
     </div>
@@ -2277,6 +2359,85 @@
       ]
     };
 
+    // Quiz Puberté et Règles à ajouter après hygiene
+    quizzesByTheme.puberte = [
+      {
+        question: "La puberté dure combien de temps ? ⏰",
+        answers: ["1-2 ans", "4-10 ans (c'est LONG !)", "Une année entière", "6 mois"],
+        correct: 1,
+        explanation: "4-10 ans ! Oui c'est LONG ! Chacune a son rythme. Ne compare pas à tes copines ! 🚀"
+      },
+      {
+        question: "Combien peut-on grandir pendant la puberté ? 📏",
+        answers: ["1-2 cm", "5 cm", "10-15 cm (très rapide !)", "30 cm"],
+        correct: 2,
+        explanation: "10-15 cm ! Tu peux grandir VITE ! Les genoux et chevilles peuvent faire mal = c'est normal ! 🌱"
+      },
+      {
+        question: "Pourquoi tes seins font mal pendant la puberté ? 🌸",
+        answers: ["C'est une maladie", "C'est l'hormone œstrogène qui agit !", "Ça veut dire qu'il y a un problème", "C'est normal mais rare"],
+        correct: 1,
+        explanation: "L'ŒSTROGÈNE ! Elle dit à tes seins de grandir et ça peut faire mal. C'est NORMAL ! Ça passe ! 💜"
+      },
+      {
+        question: "Les poils publiens = ? 🌿",
+        answers: ["C'est dégueu", "C'est une protection NATURELLE de ta zone intime !", "Ça apparaît à 20 ans", "C'est une infection"],
+        correct: 1,
+        explanation: "C'est une PROTECTION ! Les poils publiens sont là pour protéger ta vulve. C'est pas sale = c'est NATUREL ! 💪"
+      },
+      {
+        question: "Pourquoi tu as plus de boutons pendant la puberté ? 🧴",
+        answers: ["Parce que tu manges trop", "Les hormones obstruent tes pores !", "C'est une maladie de peau", "C'est normal que tout le monde ait de l'acné"],
+        correct: 1,
+        explanation: "Les HORMONES ! Elles augmentent la production de sébum = les pores se bouchent = boutons ! Lave-toi bien, sois douce ! 🧪"
+      },
+      {
+        question: "Tes émotions qui changent rapidement = ? 😭😂",
+        answers: ["Tu es bizarre", "C'est LES HORMONES ! (tout le temps !)", "Tu as un problème mental", "C'est rare"],
+        correct: 1,
+        explanation: "LES HORMONES ! Elles contrôlent tes émotions. Tu peux rire et pleurer en 2 minutes = c'est NORMAL ! Parle, respire, bouge ! 💜"
+      }
+    ];
+
+    quizzesByTheme.regles = [
+      {
+        question: "Les règles dure combien de jours ? 🩸",
+        answers: ["1-2 jours", "3-7 jours (c'est variable !)", "2 semaines", "Une journée"],
+        correct: 1,
+        explanation: "3-7 jours en moyenne ! Chacune c'est différent. Certaines 3 jours, d'autres 7. C'est OK ! 📅"
+      },
+      {
+        question: "Pourquoi tu as des règles ? 🩸",
+        answers: ["C'est une maladie", "Ton utérus évacue sa paroi interne (pas de bébé) !", "C'est juste du sang", "C'est une infection"],
+        correct: 1,
+        explanation: "Ton utérus se prépare pour une possible grossesse. Pas de bébé = il se nettoie = LES RÈGLES ! C'est SAIN ! 💪"
+      },
+      {
+        question: "Quand changent tes protections hygiéniques ? 🩸",
+        answers: ["Une fois par jour", "Toutes les 4-6 heures (ou plus souvent si flux lourd) !", "Jamais, elles durent tout le mois", "Quand elles sont pleines"],
+        correct: 1,
+        explanation: "Toutes les 4-6 heures MINIMUM ! Plus souvent = prévention infections + pas d'odeurs ! Respecte-toi ! 🧼"
+      },
+      {
+        question: "Le syndrome prémenstruel = ? 📅",
+        answers: ["C'est rare", "C'est une semaine AVANT les règles où tu peux sentir : seins gonflés, fatigue, mauvaise humeur", "C'est un problème grave", "C'est juste dans ta tête"],
+        correct: 1,
+        explanation: "C'est la PROGESTÉRONE qui monte ! Tu peux avoir gonflement, fatigue, fringales bizarres, acné... Ça passe avec les règles ! 💜"
+      },
+      {
+        question: "Tu peux faire du sport pendant les règles ? 🏃‍♀️",
+        answers: ["Non jamais !", "OUI absolument ! C'est bon pour les crampes !", "Seulement le dernier jour", "C'est dangereux"],
+        correct: 1,
+        explanation: "OUI ! Le sport aide avec les crampes ! Tu peux nager, courir, tout ! Juste change ta protection souvent en faisant sport ! 🏊"
+      },
+      {
+        question: "Les crampes des règles = ? 😣",
+        answers: ["C'est grave", "C'est l'UTÉRUS qui se contraste pour évacuer (normal !)", "C'est une douleur permanente", "Ça arrive qu'à certaines"],
+        correct: 1,
+        explanation: "L'utérus qui se CONTRACTE pour vider sa paroi ! C'est NORMAL ! Chauffe (bouillotte), repos, paracétamol aide ! 🔥"
+      }
+    ];
+
     function loadQuizByTheme(theme) {
       const quizzes = quizzesByTheme[theme] || [];
       if (quizzes.length === 0) return;
@@ -2290,12 +2451,6 @@
       const themeColor = theme === 'hormones' ? { bg: '#EDE9FE', border: '#DDD6FE', text: '#7C3AED', icon: '💜' } : { bg: '#CCFBF1', border: '#A5F3FC', text: '#0891B2', icon: '✨' };
 
       container.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-          <button onclick="switchPage('quiz', null)" style="background: none; border: none; font-size: 20px; cursor: pointer; padding: 8px;">← Menu</button>
-          <span style="font-size: 14px; font-weight: 700; color: ${themeColor.text};">${themeColor.icon} Question Aléatoire</span>
-          <div style="width: 40px;"></div>
-        </div>
-
         <div style="background: linear-gradient(135deg, ${themeColor.bg}, white); border: 2px solid ${themeColor.border}; border-radius: 16px; padding: 20px; margin-bottom: 20px;">
           <p style="font-size: 14px; font-weight: 700; color: ${themeColor.text}; margin: 0; line-height: 1.6;">${randomQuiz.question}</p>
           <div id="answersContainer" style="display: flex; flex-direction: column; gap: 10px; margin-top: 16px;"></div>
@@ -2335,9 +2490,12 @@
 
     function startQuiz(theme) {
       console.log('Quiz démarré:', theme);
+      currentQuizTheme = theme; // Stocker le thème pour "Nouvelle Question"
       switchPage('quiz', null);
       loadQuizByTheme(theme);
     }
+
+    let currentQuizTheme = null; // Pour stocker le thème actuel
 
     function checkQuizAnswerByTheme(selected, correct, explanation) {
       const answersContainer = document.getElementById('answersContainer');
@@ -2381,11 +2539,11 @@
         </p>
         <p style="font-size: 12px; color: var(--text); margin: 0 0 12px 0; line-height: 1.6;">${explanation}</p>
         <div style="display: flex; gap: 8px; margin-top: 12px;">
-          <button onclick="location.reload()" style="flex: 1; padding: 12px; background: ${selected === correct ? '#16A34A' : '#DC2626'}; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px;">
+          <button onclick="loadQuizByTheme('${currentQuizTheme}')" style="flex: 1; padding: 12px; background: ${selected === correct ? '#16A34A' : '#DC2626'}; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px; transition: all 0.2s;">
             🔄 Nouvelle Question
           </button>
-          <button onclick="switchPage('quiz', null); location.reload()" style="flex: 1; padding: 12px; background: #7C3AED; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px;">
-            📚 Retour Menu
+          <button onclick="document.getElementById('quizContent').innerHTML = ''; switchPage('quiz', null); location.reload();" style="flex: 1; padding: 12px; background: #7C3AED; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px; transition: all 0.2s;">
+            📚 Menu Quiz
           </button>
         </div>
       `;
