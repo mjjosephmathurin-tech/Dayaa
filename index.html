@@ -1068,20 +1068,70 @@
       </div>
 
       <div class="page" id="page-calendrier">
-        <div id="calendrierContent">
-          <div class="coming-soon" style="opacity: 0.5; pointer-events: none;">
-            <div class="coming-soon-emoji">📅</div>
-            <h2>Mon Calendrier</h2>
-            <p>Venez bientôt 🔧</p>
+        <p class="section-title">Mon Calendrier 📅</p>
+        
+        <!-- SETUP INITIAL (si pas de date) -->
+        <div id="calendrierSetup" style="padding: 12px;">
+          <div style="background: linear-gradient(135deg, #FCE7F3, #F8BBD0); border-radius: 12px; padding: 16px; text-align: center;">
+            <p style="font-size: 12px; font-weight: 600; color: #EC4899; margin-bottom: 12px;">📅 Quand tu as eu tes 1ères règles ?</p>
+            <p style="font-size: 10px; color: var(--text-light); margin-bottom: 12px; line-height: 1.5;">Rentre la date pour que je puisse prédire tes prochaines règles ! (Si tu les as pas encore, pas grave, tu pourras remplir plus tard)</p>
+            
+            <input type="date" id="firstPeriodDate" class="input-field" placeholder="Date 1ères règles" style="margin-bottom: 12px;">
+            
+            <button class="btn-secondary" onclick="saveFirstPeriodDate()" style="width: 100%; background: linear-gradient(135deg, var(--pink), #EC4899); color: var(--white);">💾 Enregistrer</button>
           </div>
-          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: 80%; z-index: 10;">
-            <p style="font-size: 12px; color: var(--text-light); margin-bottom: 6px;">
-              Le calendrier se déverrouille dès vos premières règles ! 📅
-            </p>
-            <p style="font-size: 11px; color: var(--text-light);">
-              En attendant, profite des autres sections ! 💜
-            </p>
+        </div>
+
+        <!-- AFFICHAGE CALENDRIER (si date enregistrée) -->
+        <div id="calendrierDisplay" style="display: none; padding: 12px;">
+          
+          <!-- PROCHAINES RÈGLES -->
+          <div style="background: linear-gradient(135deg, #FCE7F3, #F8BBD0); border-radius: 12px; padding: 12px; margin-bottom: 12px;">
+            <p style="font-size: 11px; font-weight: 600; color: #EC4899; margin-bottom: 6px;">🩸 Prochaines règles</p>
+            <p id="nextPeriodDate" style="font-size: 16px; font-weight: 700; color: #EC4899; margin: 0;"></p>
+            <p id="daysUntil" style="font-size: 10px; color: var(--text-light); margin: 4px 0 0 0;"></p>
           </div>
+
+          <!-- INFOS CYCLE -->
+          <div style="background: #FAFAFA; border-radius: 12px; padding: 12px; margin-bottom: 12px; border-left: 4px solid #EC4899;">
+            <p style="font-size: 10px; font-weight: 600; color: var(--text); margin-bottom: 8px;">📊 Ton cycle</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 10px;">
+              <div style="background: var(--white); padding: 8px; border-radius: 8px; text-align: center;">
+                <p style="color: var(--text-light); margin: 0 0 4px 0;">Saignement</p>
+                <p style="font-weight: 700; color: #EC4899; margin: 0;">3-7 jours</p>
+              </div>
+              <div style="background: var(--white); padding: 8px; border-radius: 8px; text-align: center;">
+                <p style="color: var(--text-light); margin: 0 0 4px 0;">Cycle</p>
+                <p style="font-weight: 700; color: #EC4899; margin: 0;">28 jours</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- TRACKER SYMPTÔMES -->
+          <div style="background: var(--white); border-radius: 12px; padding: 12px; margin-bottom: 12px; border-left: 4px solid #8B5CF6;">
+            <p style="font-size: 11px; font-weight: 600; color: var(--text); margin-bottom: 8px;">💜 Comment tu te sens ?</p>
+            <p style="font-size: 9px; color: var(--text-light); margin-bottom: 8px;">Pendant tes règles, ça va comment ?</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;">
+              <button class="emotion-btn" onclick="logSymptom('léger', this)" style="padding: 8px; font-size: 24px;">😊</button>
+              <button class="emotion-btn" onclick="logSymptom('normal', this)" style="padding: 8px; font-size: 24px;">😐</button>
+              <button class="emotion-btn" onclick="logSymptom('intense', this)" style="padding: 8px; font-size: 24px;">😣</button>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 6px; font-size: 9px; text-align: center; color: var(--text-light);">
+              <p style="margin: 0;">Léger</p>
+              <p style="margin: 0;">Normal</p>
+              <p style="margin: 0;">Intense</p>
+            </div>
+          </div>
+
+          <!-- CONSEILS -->
+          <div style="background: linear-gradient(135deg, #FCE7F3, #F8BBD0); border-radius: 12px; padding: 12px;">
+            <p style="font-size: 11px; font-weight: 600; color: #EC4899; margin-bottom: 6px;">💡 Conseil pour ce mois</p>
+            <p id="monthTip" style="font-size: 10px; color: var(--text); line-height: 1.5; margin: 0;"></p>
+          </div>
+
+          <!-- MODIFIER DATE -->
+          <button class="btn-secondary" onclick="showFirstPeriodDateEdit()" style="width: 100%; margin-top: 12px; opacity: 0.6;">✏️ Modifier la date</button>
         </div>
       </div>
 
@@ -1948,6 +1998,94 @@
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js').catch(() => {});
     }
+    function saveFirstPeriodDate() {
+      const dateInput = document.getElementById('firstPeriodDate').value;
+      if (!dateInput) {
+        alert('Rentre la date stp ! 📅');
+        return;
+      }
+      
+      const date = new Date(dateInput);
+      data.firstPeriodDate = dateInput;
+      localStorage.setItem('dayaaData', JSON.stringify(data));
+      localStorage.setItem('firstPeriodDate', dateInput);
+      
+      showDjadja('Parfait ! Je vais te prédire tes prochaines règles ! 💜');
+      displayCalendrier();
+    }
+
+    function showFirstPeriodDateEdit() {
+      const dateInput = document.getElementById('firstPeriodDate');
+      if (dateInput.style.display === 'none') {
+        dateInput.style.display = 'block';
+      } else {
+        dateInput.style.display = 'none';
+      }
+    }
+
+    function displayCalendrier() {
+      const firstPeriodDate = localStorage.getItem('firstPeriodDate');
+      const setup = document.getElementById('calendrierSetup');
+      const display = document.getElementById('calendrierDisplay');
+
+      if (!firstPeriodDate) {
+        setup.style.display = 'block';
+        display.style.display = 'none';
+        return;
+      }
+
+      setup.style.display = 'none';
+      display.style.display = 'block';
+
+      // Calcul prochaines règles
+      const startDate = new Date(firstPeriodDate);
+      const today = new Date();
+      const cycleDays = 28;
+
+      let nextPeriod = new Date(startDate);
+      while (nextPeriod <= today) {
+        nextPeriod.setDate(nextPeriod.getDate() + cycleDays);
+      }
+
+      const daysUntil = Math.ceil((nextPeriod - today) / (1000 * 60 * 60 * 24));
+      
+      document.getElementById('nextPeriodDate').textContent = nextPeriod.toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      document.getElementById('daysUntil').textContent = daysUntil === 0 ? '🚨 C\'est pour aujourd\'hui !' : daysUntil === 1 ? '⏰ Demain !' : `⏰ Dans ${daysUntil} jours`;
+
+      // Conseil du mois
+      const tips = [
+        '💜 Prépare ta trousse maintenant !',
+        '🚿 Une douche te fera du bien !',
+        '💪 Le sport aide à soulager les crampes !',
+        '🧘 Respire lentement si tu as mal au ventre',
+        '💤 Repose-toi bien, ton corps en a besoin !',
+        '📱 Préviens une copine en qui tu as confiance !',
+        '🫂 C\'est ok de te sentir émotionnelle'
+      ];
+      document.getElementById('monthTip').textContent = tips[Math.floor(Math.random() * tips.length)];
+    }
+
+    function logSymptom(level, btn) {
+      const symptoms = localStorage.getItem('symptoms') ? JSON.parse(localStorage.getItem('symptoms')) : {};
+      const today = new Date().toISOString().split('T')[0];
+      
+      symptoms[today] = level;
+      localStorage.setItem('symptoms', JSON.stringify(symptoms));
+
+      document.querySelectorAll('.emotion-btn').forEach(b => b.style.borderColor = '#E5E7EB');
+      btn.style.borderColor = 'var(--purple)';
+      btn.style.background = '#F3E8FF';
+
+      const messages = {
+        'léger': 'Tant mieux ! Profite de ta journée ! 🌸',
+        'normal': 'C\'est normal ! Prends soin de toi ! 💜',
+        'intense': 'Dommage... Repose-toi, ça va passer ! 😴'
+      };
+      showDjadja(messages[level]);
+    }
+
+    // Charger le calendrier au démarrage
+    window.addEventListener('load', displayCalendrier);
   </script>
 </body>
 </html>
