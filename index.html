@@ -868,6 +868,7 @@
         <div class="buttons-row">
           <button class="btn-secondary btn-evolution" onclick="showDjadja('T\'es curieuse ! J\'adore ça ! 🌱')">🌱 Évolution</button>
           <button class="btn-secondary btn-quiz" onclick="showDjadja('Teste tes connaissances ! 🎮')">🎮 Quiz</button>
+          <button class="btn-secondary" onclick="checkJournalPin()" style="background: linear-gradient(135deg, #DDD6FE, #E9D5FF);">📔 Journal</button>
         </div>
       </div>
 
@@ -1063,6 +1064,31 @@
             <p style="font-size: 11px; color: var(--text); line-height: 1.5;">Sarah réalise qu'elle n'est PAS seule. Ses règles vont revenir chaque mois. Elle va apprendre à les gérer. Elle va continuer sa vie normalement. Elle porte ses serviettes hygiéniques. Elle va à l'école. Elle fait du sport. Personne ne sait qu'elle a ses règles sauf si elle le dit.</p>
             <p style="font-size: 11px; color: var(--text); line-height: 1.5;">Une semaine plus tard, elle raconte son histoire à deux autres copines. Elles aussi ont eu leurs règles ! "C'est fou !" dit Sarah. "On est toutes pareilles !" Soudain, Sarah réalise que les règles ne sont PAS une honte. C'est une réalité. C'est naturel. C'est MAGIQUE, comme sa maman a dit. Elle est devenue une jeune femme. Elle peut en être fière. 💜</p>
             <p style="font-size: 11px; color: var(--text); font-weight: 700; margin-top: 12px;">💜 Leçon : Les 1ères règles c'est normal et MAGIQUE ! Y a rien à avoir peur. C'est juste ton corps qui grandit. Tu es pas seule, des MILLIONS de filles le vivent. C'est BEAU ! Tu es une jeune femme ! ✨</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE JOURNAL INTIME -->
+      <div class="page" id="page-journal">
+        <button onclick="switchPage('explorer', document.querySelectorAll('.nav-item')[1])" style="background: none; border: none; font-size: 18px; padding: 8px; cursor: pointer;">← Retour</button>
+        <p class="section-title">Mon Journal 📔</p>
+        
+        <div style="padding: 12px;">
+          <!-- AJOUTER ENTRÉE -->
+          <div style="background: linear-gradient(135deg, #DDD6FE, #E9D5FF); border-radius: 12px; padding: 12px; margin-bottom: 12px;">
+            <p style="font-size: 11px; font-weight: 600; color: #7C3AED; margin-bottom: 8px;">✍️ Écris tes pensées</p>
+            <textarea id="journalInput" class="input-field" placeholder="Qu'est-ce que tu ressens aujourd'hui ?" style="height: 80px; resize: none; padding: 8px;"></textarea>
+            <button class="btn-secondary" onclick="saveJournalEntry()" style="width: 100%; margin-top: 8px; background: linear-gradient(135deg, #7C3AED, #8B5CF6); color: var(--white);">💾 Enregistrer</button>
+          </div>
+
+          <!-- ENTRÉES EXISTANTES -->
+          <div id="journalEntries" style="display: grid; gap: 8px;">
+            <!-- Les entrées vont apparaître ici -->
+          </div>
+
+          <!-- MESSAGE SI VIDE -->
+          <div id="emptyMessage" style="background: #F3E8FF; border-radius: 12px; padding: 16px; text-align: center;">
+            <p style="font-size: 11px; color: #7C3AED; line-height: 1.5;">Tu n'as pas encore écrit dans ton journal ! 📔 Commence à écrire tes pensées, tes émotions, tes secrets... Tout ce que tu mets ici est PRIVÉ et bloqué par ton PIN ! 🔒💜</p>
           </div>
         </div>
       </div>
@@ -1781,6 +1807,16 @@
         return;
       }
 
+      // Si c'est pour accéder au journal
+      if (pendingAction === 'journal') {
+        closeModal('modalPin');
+        switchPage('journal', document.querySelectorAll('.nav-item')[1]);
+        showDjadja('Bienvenue dans ton journal privé ! 🔒💜');
+        pendingAction = null;
+        return;
+      }
+
+      // Sinon c'est pour modifier le profil
       closeModal('modalPin');
       document.getElementById('profileForm').style.display = 'block';
       document.getElementById('profileDisplay').style.display = 'none';
@@ -2008,6 +2044,26 @@
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js').catch(() => {});
     }
+
+    let pendingAction = null;
+
+    function checkJournalPin() {
+      const savedPin = localStorage.getItem('profilePin');
+      
+      if (!savedPin) {
+        alert('Tu n\'as pas encore créé ton PIN ! Va dans "Moi" d\'abord ! 🔐');
+        return;
+      }
+
+      document.getElementById('pinTitle').textContent = '🔐 Journal Privé - Rentre ton PIN';
+      document.getElementById('pinInput').value = '';
+      document.getElementById('pinInput').placeholder = '••••';
+      
+      pendingAction = 'journal';
+      const modal = document.getElementById('modalPin');
+      modal.style.display = 'flex';
+    }
+
     function saveFirstPeriodDate() {
       const dateInput = document.getElementById('firstPeriodDate').value;
       if (!dateInput) {
@@ -2120,6 +2176,67 @@
 
     // Charger le calendrier au démarrage
     window.addEventListener('load', displayCalendrier);
+
+    // ===== JOURNAL INTIME =====
+    function saveJournalEntry() {
+      const text = document.getElementById('journalInput').value.trim();
+      if (!text) {
+        alert('Écris quelque chose ! 📝');
+        return;
+      }
+
+      const entries = JSON.parse(localStorage.getItem('journalEntries') || '[]');
+      const today = new Date().toLocaleDateString('fr-FR');
+      
+      entries.unshift({
+        date: today,
+        timestamp: new Date().getTime(),
+        text: text
+      });
+
+      localStorage.setItem('journalEntries', JSON.stringify(entries));
+      document.getElementById('journalInput').value = '';
+      
+      loadJournalEntries();
+      showDjadja('Ton entrée est enregistrée en sécurité ! 🔒💜');
+    }
+
+    function loadJournalEntries() {
+      const entries = JSON.parse(localStorage.getItem('journalEntries') || '[]');
+      const container = document.getElementById('journalEntries');
+      const emptyMsg = document.getElementById('emptyMessage');
+
+      if (entries.length === 0) {
+        container.innerHTML = '';
+        emptyMsg.style.display = 'block';
+        return;
+      }
+
+      emptyMsg.style.display = 'none';
+      container.innerHTML = entries.map((entry, idx) => `
+        <div style="background: var(--white); border-radius: 12px; padding: 12px; border-left: 4px solid #7C3AED;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <p style="font-size: 10px; font-weight: 600; color: #7C3AED; margin: 0;">${entry.date}</p>
+            <button onclick="deleteJournalEntry(${idx})" style="background: none; border: none; color: #E5E7EB; cursor: pointer; font-size: 14px; padding: 0;">✕</button>
+          </div>
+          <p style="font-size: 10px; color: var(--text); line-height: 1.5; margin: 0; white-space: pre-wrap; word-break: break-word;">${entry.text}</p>
+        </div>
+      `).join('');
+    }
+
+    function deleteJournalEntry(idx) {
+      if (!confirm('Tu es sûre ? Cette entrée sera supprimée ! 🗑️')) return;
+      
+      const entries = JSON.parse(localStorage.getItem('journalEntries') || '[]');
+      entries.splice(idx, 1);
+      localStorage.setItem('journalEntries', JSON.stringify(entries));
+      
+      loadJournalEntries();
+      showDjadja('Entrée supprimée ! 🗑️');
+    }
+
+    // Charger le journal au démarrage
+    window.addEventListener('load', loadJournalEntries);
   </script>
 </body>
 </html>
