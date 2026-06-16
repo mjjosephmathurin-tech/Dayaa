@@ -871,7 +871,7 @@
         </div>
         
         <!-- BOUTON JOURNAL FULL-WIDTH -->
-        <button class="btn-secondary" onclick="checkJournalPin()" style="background: linear-gradient(135deg, #FCE7F3, #F8BBD0); width: calc(100% - 24px); padding: 16px 12px; font-size: 14px; font-weight: 700; margin: 12px; display: block; color: #EC4899;">📔 Journal Intime Privé 🔐</button>
+        <button class="btn-secondary" onclick="checkJournalPin()" style="background: linear-gradient(135deg, #FCE7F3, #F8BBD0); width: calc(100% - 24px); padding: 16px 12px; font-size: 14px; font-weight: 700; margin: 4px 12px; display: block; color: #EC4899;">📔 Journal Intime Privé 🔐</button>
       </div>
 
       <div class="page" id="page-stock">
@@ -1267,14 +1267,6 @@
 
       <div class="page" id="page-moi">
         <p class="section-title">Mes Infos</p>
-        
-        <div id="profileStart" style="padding: 12px;">
-          <div style="background: linear-gradient(135deg, #FCE7F3, #F8BBD0); border-radius: 12px; padding: 16px; text-align: center;">
-            <p style="font-size: 12px; font-weight: 600; color: #EC4899; margin-bottom: 12px;">👋 Remplis tes infos !</p>
-            <p style="font-size: 10px; color: var(--text-light); margin-bottom: 12px; line-height: 1.5;">Rentre ton prénom, date de naissance, les infos de ton parent, et surtout crée ton CODE PIN (4 chiffres) pour sécuriser ton journal ! 🔐</p>
-            <button class="btn-secondary" onclick="showProfileForm()" style="width: 100%; background: linear-gradient(135deg, var(--pink), #EC4899); color: var(--white);">✏️ Remplir mes infos</button>
-          </div>
-        </div>
         
         <div class="profile-form" id="profileForm" style="display: none;">
           <h3 style="font-size: 12px; margin-bottom: 12px; color: var(--text);">Informations de l'enfant</h3>
@@ -1877,15 +1869,14 @@
       }
       
       const message = emotionMessages[emotion] || "Merci pour ton partage ! 💜";
-      document.getElementById('emotionMessage').style.display = 'block';
-      document.getElementById('emotionMessageText').textContent = message;
-      
       localStorage.setItem('currentEmotion', emotion);
       localStorage.setItem('emotionMessage', message);
       
-      // Djadja ne s'affiche QUE sur l'accueil
+      // Messages d'émotion + Djadja UNIQUEMENT sur l'accueil
       const currentPage = document.querySelector('.page.active');
       if (currentPage && currentPage.id === 'page-accueil') {
+        document.getElementById('emotionMessage').style.display = 'block';
+        document.getElementById('emotionMessageText').textContent = message;
         showDjadja(message);
       }
     }
