@@ -35,6 +35,7 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background: var(--lavender);
       overflow: hidden;
+      scrollbar-gutter: stable;
     }
 
     .app {
@@ -2497,6 +2498,45 @@
 
     let currentQuizTheme = null; // Pour stocker le thème actuel
 
+    function resetQuizMenu() {
+      // Revenir au menu de sélection des quiz
+      const quizContent = document.getElementById('quizContent');
+      quizContent.innerHTML = `
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; padding: 24px; margin-bottom: 20px; text-align: center;">
+          <p style="font-size: 14px; color: white; margin: 0 0 8px 0; font-weight: 700;">📚 CHOISIS TON QUIZ</p>
+          <p style="font-size: 12px; color: rgba(255,255,255,0.9); margin: 0;">Teste tes connaissances ! 🧠✨</p>
+        </div>
+
+        <button class="btn-secondary" onclick="startQuiz('hormones')" style="width: calc(100% - 24px); padding: 20px 12px; margin: 12px; background: linear-gradient(135deg, #EDE9FE 0%, #E9D5FF 100%); color: #7C3AED; font-weight: 700; font-size: 14px; box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2); border: 2px solid #DDD6FE; transition: all 0.3s;">
+          <span style="font-size: 24px; display: block; margin-bottom: 8px;">💜</span>
+          Quiz Hormones
+          <span style="font-size: 11px; display: block; margin-top: 4px; opacity: 0.7;">5 questions</span>
+        </button>
+
+        <button class="btn-secondary" onclick="startQuiz('hygiene')" style="width: calc(100% - 24px); padding: 20px 12px; margin: 12px; background: linear-gradient(135deg, #CCFBF1 0%, #99F6E4 100%); color: #0891B2; font-weight: 700; font-size: 14px; box-shadow: 0 4px 12px rgba(8, 145, 178, 0.2); border: 2px solid #A5F3FC; transition: all 0.3s;">
+          <span style="font-size: 24px; display: block; margin-bottom: 8px;">✨</span>
+          Quiz Hygiène
+          <span style="font-size: 11px; display: block; margin-top: 4px; opacity: 0.7;">6 questions</span>
+        </button>
+
+        <button class="btn-secondary" onclick="startQuiz('puberte')" style="width: calc(100% - 24px); padding: 20px 12px; margin: 12px; background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%); color: #EA580C; font-weight: 700; font-size: 14px; box-shadow: 0 4px 12px rgba(234, 88, 12, 0.2); border: 2px solid #FFEDD5; transition: all 0.3s;">
+          <span style="font-size: 24px; display: block; margin-bottom: 8px;">⚡</span>
+          Quiz Puberté
+          <span style="font-size: 11px; display: block; margin-top: 4px; opacity: 0.7;">6 questions</span>
+        </button>
+
+        <button class="btn-secondary" onclick="startQuiz('regles')" style="width: calc(100% - 24px); padding: 20px 12px; margin: 12px; background: linear-gradient(135deg, #FEE2E2 0%, #FECDD3 100%); color: #DC2626; font-weight: 700; font-size: 14px; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2); border: 2px solid #FECDD3; transition: all 0.3s;">
+          <span style="font-size: 24px; display: block; margin-bottom: 8px;">🩸</span>
+          Quiz Règles
+          <span style="font-size: 11px; display: block; margin-top: 4px; opacity: 0.7;">6 questions</span>
+        </button>
+
+        <div style="background: linear-gradient(135deg, #FEF9C3, #FDE047); border-radius: 12px; padding: 16px; margin-top: 20px; text-align: center; border-left: 4px solid #FBBF24;">
+          <p style="font-size: 11px; color: #854D0E; margin: 0; font-weight: 600; line-height: 1.6;">💡 Chaque question = réponse aléatoire ! Essaie autant que tu veux ! 🚀</p>
+        </div>
+      `;
+    }
+
     function checkQuizAnswerByTheme(selected, correct, explanation) {
       const answersContainer = document.getElementById('answersContainer');
       if (!answersContainer) return;
@@ -2542,7 +2582,7 @@
           <button onclick="loadQuizByTheme('${currentQuizTheme}')" style="flex: 1; padding: 12px; background: ${selected === correct ? '#16A34A' : '#DC2626'}; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px; transition: all 0.2s;">
             🔄 Nouvelle Question
           </button>
-          <button onclick="document.getElementById('quizContent').innerHTML = ''; switchPage('quiz', null); location.reload();" style="flex: 1; padding: 12px; background: #7C3AED; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px; transition: all 0.2s;">
+          <button onclick="resetQuizMenu()" style="flex: 1; padding: 12px; background: #7C3AED; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px; transition: all 0.2s;">
             📚 Menu Quiz
           </button>
         </div>
