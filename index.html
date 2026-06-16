@@ -108,6 +108,8 @@
     .page {
       display: none;
       padding-bottom: 150px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     .page.active {
@@ -1379,19 +1381,36 @@
 
     <!-- PAGE QUIZ -->
     <div class="page" id="page-quiz">
-      <p class="section-title">🎮 Quiz</p>
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px;">
+        <button onclick="switchPage('explorer', document.querySelectorAll('.nav-item')[1])" style="background: none; border: none; font-size: 24px; cursor: pointer; padding: 8px;">← Retour</button>
+        <p class="section-title" style="margin: 0; flex: 1; text-align: center;">🎮 Quiz</p>
+        <div style="width: 40px;"></div>
+      </div>
+
       <div id="quizContent" style="padding: 12px;">
-        <div style="background: linear-gradient(135deg, #EDE9FE, #DDD6FE); border-radius: 12px; padding: 16px; margin-bottom: 16px; text-align: center;">
-          <p style="font-size: 12px; color: #7C3AED; margin: 0 0 8px 0; font-weight: 600;">📖 Choisis un quiz !</p>
-          <p style="font-size: 11px; color: #7C3AED; margin: 0;">Teste tes connaissances sur les thèmes de la puberté ! 🧠✨</p>
+        <!-- ÉTAT INITIAL: Sélection quiz -->
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; padding: 24px; margin-bottom: 20px; text-align: center;">
+          <p style="font-size: 14px; color: white; margin: 0 0 8px 0; font-weight: 700;">📚 CHOISIS TON QUIZ</p>
+          <p style="font-size: 12px; color: rgba(255,255,255,0.9); margin: 0;">Teste tes connaissances ! 🧠✨</p>
         </div>
 
-        <button class="btn-secondary" onclick="startQuiz('hormones')" style="width: calc(100% - 24px); padding: 16px 12px; margin: 12px; background: linear-gradient(135deg, #EDE9FE, #DDD6FE); color: #7C3AED; font-weight: 700; font-size: 13px;">💜 Quiz Hormones</button>
+        <!-- QUIZ HORMONES -->
+        <button class="btn-secondary" onclick="startQuiz('hormones')" style="width: calc(100% - 24px); padding: 20px 12px; margin: 12px; background: linear-gradient(135deg, #EDE9FE 0%, #E9D5FF 100%); color: #7C3AED; font-weight: 700; font-size: 14px; box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2); border: 2px solid #DDD6FE; transition: all 0.3s;">
+          <span style="font-size: 24px; display: block; margin-bottom: 8px;">💜</span>
+          Quiz Hormones
+          <span style="font-size: 11px; display: block; margin-top: 4px; opacity: 0.7;">5 questions aléatoires</span>
+        </button>
 
-        <button class="btn-secondary" onclick="startQuiz('hygiene')" style="width: calc(100% - 24px); padding: 16px 12px; margin: 12px; background: linear-gradient(135deg, #CCFBF1, #A5F3FC); color: #0891B2; font-weight: 700; font-size: 13px;">✨ Quiz Hygiène</button>
+        <!-- QUIZ HYGIÈNE -->
+        <button class="btn-secondary" onclick="startQuiz('hygiene')" style="width: calc(100% - 24px); padding: 20px 12px; margin: 12px; background: linear-gradient(135deg, #CCFBF1 0%, #99F6E4 100%); color: #0891B2; font-weight: 700; font-size: 14px; box-shadow: 0 4px 12px rgba(8, 145, 178, 0.2); border: 2px solid #A5F3FC; transition: all 0.3s;">
+          <span style="font-size: 24px; display: block; margin-bottom: 8px;">✨</span>
+          Quiz Hygiène
+          <span style="font-size: 11px; display: block; margin-top: 4px; opacity: 0.7;">6 questions aléatoires</span>
+        </button>
 
-        <div style="background: #FEF9C3; border-radius: 12px; padding: 12px; margin-top: 12px; text-align: center;">
-          <p style="font-size: 10px; color: #854D0E; margin: 0;">💡 Chaque quiz = 5 questions aléatoires ! Essaie autant que tu veux ! 🚀</p>
+        <!-- INFO -->
+        <div style="background: linear-gradient(135deg, #FEF9C3, #FDE047); border-radius: 12px; padding: 16px; margin-top: 20px; text-align: center; border-left: 4px solid #FBBF24;">
+          <p style="font-size: 11px; color: #854D0E; margin: 0; font-weight: 600; line-height: 1.6;">💡 <strong>ASTUCE :</strong> Chaque question = réponse unique ! La même question peut revenir avec des réponses différentes. Essaie autant que tu veux ! Aucune note, juste pour apprendre ! 🚀</p>
         </div>
       </div>
     </div>
@@ -2267,10 +2286,19 @@
       
       if (!container) return;
 
+      // Déterminer la couleur du thème
+      const themeColor = theme === 'hormones' ? { bg: '#EDE9FE', border: '#DDD6FE', text: '#7C3AED', icon: '💜' } : { bg: '#CCFBF1', border: '#A5F3FC', text: '#0891B2', icon: '✨' };
+
       container.innerHTML = `
-        <div style="background: linear-gradient(135deg, #EDE9FE, #DDD6FE); border-radius: 16px; padding: 16px; margin-bottom: 16px;">
-          <p style="font-size: 13px; font-weight: 700; color: #7C3AED; margin: 0 0 12px 0;">${randomQuiz.question}</p>
-          <div id="answersContainer" style="display: flex; flex-direction: column; gap: 8px;"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <button onclick="switchPage('quiz', null)" style="background: none; border: none; font-size: 20px; cursor: pointer; padding: 8px;">← Menu</button>
+          <span style="font-size: 14px; font-weight: 700; color: ${themeColor.text};">${themeColor.icon} Question Aléatoire</span>
+          <div style="width: 40px;"></div>
+        </div>
+
+        <div style="background: linear-gradient(135deg, ${themeColor.bg}, white); border: 2px solid ${themeColor.border}; border-radius: 16px; padding: 20px; margin-bottom: 20px;">
+          <p style="font-size: 14px; font-weight: 700; color: ${themeColor.text}; margin: 0; line-height: 1.6;">${randomQuiz.question}</p>
+          <div id="answersContainer" style="display: flex; flex-direction: column; gap: 10px; margin-top: 16px;"></div>
         </div>
       `;
 
@@ -2279,16 +2307,27 @@
         const btn = document.createElement('button');
         btn.textContent = answer;
         btn.style.cssText = `
-          padding: 12px;
-          border: 2px solid #DDD6FE;
-          border-radius: 8px;
+          padding: 14px;
+          border: 2px solid ${themeColor.border};
+          border-radius: 12px;
           background: white;
-          color: #7C3AED;
+          color: ${themeColor.text};
           font-weight: 600;
           cursor: pointer;
-          font-size: 12px;
-          transition: all 0.3s;
+          font-size: 13px;
+          transition: all 0.2s ease;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         `;
+        btn.onmouseover = () => {
+          btn.style.background = themeColor.bg;
+          btn.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+          btn.style.transform = 'translateY(-2px)';
+        };
+        btn.onmouseout = () => {
+          btn.style.background = 'white';
+          btn.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.05)';
+          btn.style.transform = 'translateY(0)';
+        };
         btn.onclick = () => checkQuizAnswerByTheme(idx, randomQuiz.correct, randomQuiz.explanation);
         answersContainer.appendChild(btn);
       });
@@ -2309,29 +2348,46 @@
       buttons.forEach((btn, idx) => {
         btn.disabled = true;
         btn.style.cursor = 'not-allowed';
+        btn.style.opacity = '0.6';
         if (idx === correct) {
           btn.style.background = '#DCFCE7';
           btn.style.borderColor = '#16A34A';
           btn.style.color = '#16A34A';
+          btn.style.opacity = '1';
+          btn.style.boxShadow = '0 0 12px rgba(22, 163, 74, 0.3)';
         } else if (idx === selected && idx !== correct) {
           btn.style.background = '#FEE2E2';
           btn.style.borderColor = '#DC2626';
+          btn.style.color = '#DC2626';
+          btn.style.opacity = '1';
         }
       });
 
       const resultDiv = document.createElement('div');
       resultDiv.style.cssText = `
-        background: ${selected === correct ? '#DCFCE7' : '#FEE2E2'};
-        border-radius: 12px;
-        padding: 12px;
-        margin-top: 12px;
+        background: ${selected === correct ? 'linear-gradient(135deg, #DCFCE7, #BBFBEE)' : 'linear-gradient(135deg, #FEE2E2, #FECDD3)'};
+        border: 2px solid ${selected === correct ? '#16A34A' : '#DC2626'};
+        border-radius: 16px;
+        padding: 16px;
+        margin-top: 16px;
         text-align: center;
       `;
       resultDiv.innerHTML = `
-        <p style="font-size: 12px; font-weight: 700; color: ${selected === correct ? '#16A34A' : '#DC2626'}; margin: 0 0 8px 0;">
-          ${selected === correct ? '✅ Bravo !' : '❌ Pas tout à fait...'}
+        <p style="font-size: 28px; margin: 0 0 8px 0;">
+          ${selected === correct ? '✅' : '❌'}
         </p>
-        <p style="font-size: 11px; color: var(--text-light); margin: 0;">${explanation}</p>
+        <p style="font-size: 14px; font-weight: 700; color: ${selected === correct ? '#16A34A' : '#DC2626'}; margin: 0 0 8px 0;">
+          ${selected === correct ? 'Bravo !' : 'Pas tout à fait...'}
+        </p>
+        <p style="font-size: 12px; color: var(--text); margin: 0 0 12px 0; line-height: 1.6;">${explanation}</p>
+        <div style="display: flex; gap: 8px; margin-top: 12px;">
+          <button onclick="location.reload()" style="flex: 1; padding: 12px; background: ${selected === correct ? '#16A34A' : '#DC2626'}; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px;">
+            🔄 Nouvelle Question
+          </button>
+          <button onclick="switchPage('quiz', null); location.reload()" style="flex: 1; padding: 12px; background: #7C3AED; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px;">
+            📚 Retour Menu
+          </button>
+        </div>
       `;
       document.getElementById('quizContent').appendChild(resultDiv);
 
