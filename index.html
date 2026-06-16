@@ -1266,6 +1266,14 @@
       <div class="page" id="page-moi">
         <p class="section-title">Mes Infos</p>
         
+        <div id="profileStart" style="padding: 12px;">
+          <div style="background: linear-gradient(135deg, #FCE7F3, #F8BBD0); border-radius: 12px; padding: 16px; text-align: center;">
+            <p style="font-size: 12px; font-weight: 600; color: #EC4899; margin-bottom: 12px;">👋 Remplis tes infos !</p>
+            <p style="font-size: 10px; color: var(--text-light); margin-bottom: 12px; line-height: 1.5;">Rentre ton prénom, date de naissance, les infos de ton parent, et surtout crée ton CODE PIN (4 chiffres) pour sécuriser ton journal ! 🔐</p>
+            <button class="btn-secondary" onclick="showProfileForm()" style="width: 100%; background: linear-gradient(135deg, var(--pink), #EC4899); color: var(--white);">✏️ Remplir mes infos</button>
+          </div>
+        </div>
+        
         <div class="profile-form" id="profileForm" style="display: none;">
           <h3 style="font-size: 12px; margin-bottom: 12px; color: var(--text);">Informations de l'enfant</h3>
           <div class="form-group">
@@ -1311,7 +1319,7 @@
           </div>
           <input type="hidden" id="avatarChoice" value="">
 
-          <h3 style="font-size: 12px; margin: 8px 0 12px 0; color: var(--text);">Code de validation (4 chiffres)</h3>
+          <h3 style="font-size: 12px; margin: 8px 0 12px 0; color: var(--text);">Code d'accès des parents (4 chiffres)</h3>
           <div class="form-group">
             <input type="text" id="pinCreate" maxlength="4" placeholder="0000" class="pin-input">
           </div>
@@ -1799,24 +1807,32 @@
     }
 
     function verifyPin() {
-      const data = JSON.parse(localStorage.getItem('profileData') || 'null');
       const pin = document.getElementById('pinInput').value;
+
+      // Si c'est pour accéder au journal
+      if (pendingAction === 'journal') {
+        const journalCode = localStorage.getItem('journalCode');
+        if (pin !== journalCode) {
+          alert('Code incorrect ! 🔒');
+          return;
+        }
+        const modal = document.getElementById('modalPin');
+        modal.style.display = 'none';
+        switchPage('journal', document.querySelectorAll('.nav-item')[1]);
+        showDjadja('Bienvenue dans ton journal privé ! 🔒💜');
+        loadJournalEntries();
+        pendingAction = null;
+        return;
+      }
+
+      // Sinon c'est pour modifier le profil
+      const data = JSON.parse(localStorage.getItem('profileData') || 'null');
 
       if (!data || pin !== data.pin) {
         alert('Code incorrect !');
         return;
       }
 
-      // Si c'est pour accéder au journal
-      if (pendingAction === 'journal') {
-        closeModal('modalPin');
-        switchPage('journal', document.querySelectorAll('.nav-item')[1]);
-        showDjadja('Bienvenue dans ton journal privé ! 🔒💜');
-        pendingAction = null;
-        return;
-      }
-
-      // Sinon c'est pour modifier le profil
       closeModal('modalPin');
       document.getElementById('profileForm').style.display = 'block';
       document.getElementById('profileDisplay').style.display = 'none';
@@ -2047,21 +2063,80 @@
 
     let pendingAction = null;
 
+    function showProfileForm() {
+      document.getElementById('profileStart').style.display = 'none';
+      document.getElementById('profileForm').style.display = 'block';
+    }
+
     function checkJournalPin() {
-      const savedPin = localStorage.getItem('profilePin');
+      const journalCode = localStorage.getItem('journalCode');
       
-      if (!savedPin) {
-        alert('Tu n\'as pas encore créé ton PIN ! Va dans "Moi" d\'abord ! 🔐');
+      if (!journalCode) {
+        // 1ère FOIS : créer un code
+        showCreateJournalCode();
         return;
       }
 
-      document.getElementById('pinTitle').textContent = '🔐 Journal Privé - Rentre ton PIN';
+      // FOIS SUIVANTES : demander le code
+      document.getElementById('pinTitle').textContent = '🔐 Journal Privé - Rentre ton code';
       document.getElementById('pinInput').value = '';
       document.getElementById('pinInput').placeholder = '••••';
       
       pendingAction = 'journal';
       const modal = document.getElementById('modalPin');
       modal.style.display = 'flex';
+    }
+
+    function showCreateJournalCode() {
+      // Modal pour créer le code la 1ère fois
+      const modal = document.createElement('div');
+      modal.id = 'createCodeModal';
+      modal.className = 'modal';
+      modal.style.display = 'flex';
+      modal.innerHTML = `
+        <div class="modal-content">
+          <div class="modal-emoji">🔐</div>
+          <p class="modal-title">Crée ton code secret !</p>
+          <p style="font-size: 10px; color: var(--text-light); margin-bottom: 12px; text-align: center;">C'est LE CODE SEULEMENT pour toi. Les parents ne le connaissent pas ! 😉</p>
+          <div style="margin: 8px 0;">
+            <input type="text" id="newJournalCode" maxlength="4" placeholder="Choisis 4 chiffres" class="pin-input" style="text-align: center; font-size: 18px; letter-spacing: 4px;">
+          </div>
+          <div class="modal-buttons">
+            <button class="modal-btn modal-btn-yes" onclick="saveJournalCode()">Créer ! 🎉</button>
+            <button class="modal-btn modal-btn-no" onclick="closeCreateCodeModal()">Annuler</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      showDjadja('Crée un code JUSTE POUR TOI ! Personne ne le saura sauf toi ! 🤫💜');
+    }
+
+    function saveJournalCode() {
+      const code = document.getElementById('newJournalCode').value;
+      
+      if (!code || code.length !== 4) {
+        alert('Rentre 4 chiffres ! 📝');
+        return;
+      }
+      
+      if (!/^\d+$/.test(code)) {
+        alert('Que des chiffres ! 0-9 🔢');
+        return;
+      }
+
+      localStorage.setItem('journalCode', code);
+      closeCreateCodeModal();
+      
+      setTimeout(() => {
+        switchPage('journal', document.querySelectorAll('.nav-item')[1]);
+        showDjadja('Ton code est créé ! 🔐 Personne ne peut accéder à ton journal maintenant ! 💜');
+        loadJournalEntries();
+      }, 300);
+    }
+
+    function closeCreateCodeModal() {
+      const modal = document.getElementById('createCodeModal');
+      if (modal) modal.remove();
     }
 
     function saveFirstPeriodDate() {
