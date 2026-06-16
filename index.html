@@ -1131,7 +1131,17 @@
           </div>
 
           <!-- MODIFIER DATE -->
-          <button class="btn-secondary" onclick="showFirstPeriodDateEdit()" style="width: 100%; margin-top: 12px; opacity: 0.6;">✏️ Modifier la date</button>
+          <button class="btn-secondary" onclick="showEditDateModal()" style="width: 100%; margin-top: 12px; opacity: 0.6;">✏️ Modifier la date</button>
+        </div>
+
+        <!-- MODAL MODIFIER DATE -->
+        <div id="editDateModal" class="modal">
+          <p style="font-size: 12px; font-weight: 600; margin-bottom: 12px;">📅 Modifier la date</p>
+          <input type="date" id="editFirstPeriodDate" class="input-field" placeholder="Nouvelle date">
+          <div style="display: flex; gap: 8px; margin-top: 12px;">
+            <button class="btn-secondary" onclick="closeEditDateModal()" style="flex: 1; background: #E5E7EB;">Annuler</button>
+            <button class="btn-secondary" onclick="confirmEditDate()" style="flex: 1; background: linear-gradient(135deg, var(--pink), #EC4899); color: var(--white);">Confirmer</button>
+          </div>
         </div>
       </div>
 
@@ -2020,6 +2030,31 @@
       } else {
         dateInput.style.display = 'none';
       }
+    }
+
+    function showEditDateModal() {
+      const modal = document.getElementById('editDateModal');
+      const currentDate = localStorage.getItem('firstPeriodDate');
+      document.getElementById('editFirstPeriodDate').value = currentDate || '';
+      modal.classList.add('active');
+    }
+
+    function closeEditDateModal() {
+      const modal = document.getElementById('editDateModal');
+      modal.classList.remove('active');
+    }
+
+    function confirmEditDate() {
+      const newDate = document.getElementById('editFirstPeriodDate').value;
+      if (!newDate) {
+        alert('Rentre une date ! 📅');
+        return;
+      }
+      
+      localStorage.setItem('firstPeriodDate', newDate);
+      closeEditDateModal();
+      displayCalendrier();
+      showDjadja('Parfait ! Tes prédictions sont mises à jour ! 💜');
     }
 
     function displayCalendrier() {
