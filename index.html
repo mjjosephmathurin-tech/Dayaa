@@ -846,6 +846,12 @@
           <p>Déodorant, lotion, savon...</p>
           <button class="btn-stock-see" onclick="switchPage('stock', document.querySelectorAll('.nav-item')[0])">Avertis ton parent de confiance →</button>
         </div>
+
+        <!-- PENSÉE DU JOUR -->
+        <div style="background: linear-gradient(135deg, #EDE9FE, #DDD6FE); border-radius: 16px; padding: 16px; margin: 12px; text-align: center;">
+          <p style="font-size: 10px; font-weight: 600; color: #7C3AED; margin-bottom: 8px;">💭 Pensée du jour</p>
+          <p id="thoughtOfDay" style="font-size: 12px; color: #7C3AED; margin: 0; font-style: italic; line-height: 1.6;"></p>
+        </div>
       </div>
 
       <div class="page" id="page-explorer">
@@ -865,9 +871,6 @@
           <button class="btn-secondary btn-evolution" onclick="showDjadja('T\'es curieuse ! J\'adore ça ! 🌱')">🌱 Évolution</button>
           <button class="btn-secondary btn-quiz" onclick="showDjadja('Teste tes connaissances ! 🎮')">🎮 Quiz</button>
         </div>
-
-        <!-- BOUTON QUIZ DU JOUR -->
-        <button class="btn-secondary" onclick="switchPage('quizquotidien', document.querySelectorAll('.nav-item')[1])" style="background: linear-gradient(135deg, #FEE2E2, #FECDD3); width: calc(100% - 24px); padding: 24px 12px; font-size: 15px; font-weight: 700; margin: 8px 12px; display: block; color: #DC2626;">⭐ Quiz du Jour</button>
         
         <!-- BOUTON JOURNAL FULL-WIDTH -->
         <button class="btn-secondary" onclick="checkJournalPin()" style="background: linear-gradient(135deg, #FCE7F3, #F8BBD0); width: calc(100% - 24px); padding: 24px 12px; font-size: 15px; font-weight: 700; margin: -8px 12px 0 12px; display: block; color: #EC4899;">📔 Journal Intime Privé 🔐</button>
@@ -1375,14 +1378,6 @@
     </div>
 
     <!-- PAGE QUIZ DU JOUR -->
-    <div class="page" id="page-quizquotidien">
-      <p class="section-title">⭐ Quiz du Jour</p>
-      
-      <div id="quizContainer" style="padding: 12px;">
-        <div id="quizContent"></div>
-      </div>
-    </div>
-
     </div>
 
     <div class="djadja-popup" id="djadjaPopup">
@@ -2076,152 +2071,37 @@
 
     let pendingAction = null;
 
-    // QUIZ DU JOUR
-    const quizDayQuestions = [
-      {
-        question: "Combien de jours dure généralement un cycle menstruel ?",
-        answers: ["20 jours", "28 jours", "35 jours", "45 jours"],
-        correct: 1,
-        explanation: "Le cycle menstruel dure généralement entre 21 et 35 jours, avec une moyenne de 28 jours ! 📅"
-      },
-      {
-        question: "Qu'est-ce que la puberté ?",
-        answers: ["Une maladie", "Une période de transformation du corps", "Un problème", "Rien de spécial"],
-        correct: 1,
-        explanation: "La puberté est une période naturelle où ton corps se transforme et se développe ! C'est magique ! ✨"
-      },
-      {
-        question: "Quel hormone est responsable de la puberté chez les filles ?",
-        answers: ["L'insuline", "L'œstrogène", "L'adrénaline", "La mélatonine"],
-        correct: 1,
-        explanation: "L'œstrogène est l'hormone principale de la puberté féminine ! Elle contrôle plein de changements ! 💜"
-      },
-      {
-        question: "C'est normal d'avoir des saignements irréguliers au début ?",
-        answers: ["Non, jamais", "Oui, c'est très normal", "Seulement si tu suis un régime", "Ça n'existe pas"],
-        correct: 1,
-        explanation: "Oui ! Les 2-3 premières années, les règles peuvent être irrégulières. C'est totally normal ! 🩸"
-      },
-      {
-        question: "Quel est le meilleur moyen de gérer l'acné ?",
-        answers: ["Ne rien faire", "Se laver le visage régulièrement + humidifier", "Utiliser des produits agressifs", "Éviter l'eau"],
-        correct: 1,
-        explanation: "Un bon nettoyage et de l'hydratation c'est la clé ! Et sois patiente, ça disparaîtra ! 🧼✨"
-      },
-      {
-        question: "À quel âge commencent généralement les règles ?",
-        answers: ["8-9 ans", "11-15 ans", "18-20 ans", "25+ ans"],
-        correct: 1,
-        explanation: "La plupart des filles ont leurs premières règles entre 11 et 15 ans, mais c'est normal si c'est plus tôt ou plus tard ! 📅"
-      },
-      {
-        question: "Peut-on faire du sport pendant ses règles ?",
-        answers: ["Non, jamais", "Oui, absolument ! C'est même bon pour toi", "Seulement la natation", "Uniquement les jours pairs"],
-        correct: 1,
-        explanation: "Oui ! Le sport est même bénéfique pendant les règles pour soulager les crampes ! 💪"
-      },
-      {
-        question: "Combien de temps avant les règles peut-on avoir des pertes blanches ?",
-        answers: ["1 jour avant", "2-3 jours avant", "1-2 semaines avant", "1 mois avant"],
-        correct: 2,
-        explanation: "Les pertes blanches peuvent augmenter 1-2 semaines avant les règles ! C'est un bon indicateur ! 💧"
-      },
-      {
-        question: "Est-ce que c'est normal de se sentir émotionnelle avant les règles ?",
-        answers: ["Non, c'est anormal", "Oui, c'est très normal", "Seulement si tu es triste", "C'est un signe de maladie"],
-        correct: 1,
-        explanation: "Oui ! Les hormones peuvent faire fluctuer tes émotions. C'est complètement normal ! 🎢💜"
-      },
-      {
-        question: "Quel type de protection menstruelle existe ?",
-        answers: ["Serviettes uniquement", "Serviettes, tampons, coupes menstruelles", "Rien ne fonctionne", "Secret médical"],
-        correct: 1,
-        explanation: "Il y a plusieurs options : serviettes, tampons, coupes menstruelles, disques... À toi de trouver ce qui te convient ! 🎒"
-      }
-    ];
-
-    function getQuizOfTheDay() {
-      const today = new Date();
-      const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
-      const quizIndex = dayOfYear % quizDayQuestions.length;
-      return quizDayQuestions[quizIndex];
-    }
-
-    function loadQuizOfTheDay() {
-      const quiz = getQuizOfTheDay();
-      const container = document.getElementById('quizContent');
-      
-      container.innerHTML = `
-        <div style="background: linear-gradient(135deg, #FEE2E2, #FECDD3); border-radius: 16px; padding: 16px; margin-bottom: 16px;">
-          <p style="font-size: 13px; font-weight: 700; color: #DC2626; margin: 0 0 12px 0;">${quiz.question}</p>
-          <div id="answersContainer" style="display: flex; flex-direction: column; gap: 8px;"></div>
-        </div>
-      `;
-
-      const answersContainer = document.getElementById('answersContainer');
-      quiz.answers.forEach((answer, idx) => {
-        const btn = document.createElement('button');
-        btn.textContent = answer;
-        btn.style.cssText = `
-          padding: 12px;
-          border: 2px solid #FECDD3;
-          border-radius: 8px;
-          background: white;
-          color: #DC2626;
-          font-weight: 600;
-          cursor: pointer;
-          font-size: 12px;
-          transition: all 0.3s;
-        `;
-        btn.onclick = () => checkQuizAnswer(idx, quiz.correct, quiz.explanation);
-        answersContainer.appendChild(btn);
-      });
-    }
-
-    function checkQuizAnswer(selected, correct, explanation) {
-      const answersContainer = document.getElementById('answersContainer');
-      const buttons = answersContainer.querySelectorAll('button');
-      
-      buttons.forEach((btn, idx) => {
-        btn.disabled = true;
-        btn.style.cursor = 'not-allowed';
-        if (idx === correct) {
-          btn.style.background = '#DCFCE7';
-          btn.style.borderColor = '#16A34A';
-          btn.style.color = '#16A34A';
-        } else if (idx === selected && idx !== correct) {
-          btn.style.background = '#FEE2E2';
-          btn.style.borderColor = '#DC2626';
-        }
-      });
-
-      const resultDiv = document.createElement('div');
-      resultDiv.style.cssText = `
-        background: ${selected === correct ? '#DCFCE7' : '#FEE2E2'};
-        border-radius: 12px;
-        padding: 12px;
-        margin-top: 12px;
-        text-align: center;
-      `;
-      resultDiv.innerHTML = `
-        <p style="font-size: 12px; font-weight: 700; color: ${selected === correct ? '#16A34A' : '#DC2626'}; margin: 0 0 8px 0;">
-          ${selected === correct ? '✅ Bravo ! C\'est correct !' : '❌ Pas tout à fait...'}
-        </p>
-        <p style="font-size: 11px; color: var(--text-light); margin: 0;">${explanation}</p>
-      `;
-      document.getElementById('quizContent').appendChild(resultDiv);
-
-      if (selected === correct) {
-        showDjadja('Excellent ! Tu es une experte ! 🌟');
-      }
-    }
-
-    let pendingAction = null;
-
     function showProfileForm() {
-      document.getElementById('profileStart').style.display = 'none';
       document.getElementById('profileForm').style.display = 'block';
     }
+
+    // PENSÉE DU JOUR
+    const thoughtsOfDay = [
+      "Tu es capable de tout ce que tu veux ! 💪",
+      "Sois gentille avec toi-même, tu mérites l'amour et la compassion ! 💜",
+      "Chaque jour est une nouvelle opportunité de briller ! ✨",
+      "Tes différences te rendent unique et magnifique ! 🦋",
+      "Il est okay de ne pas tout comprendre, tu apprends ! 🌱",
+      "Tu es plus forte que tu ne le penses ! 💪",
+      "Ton corps est incroyable, respect-le ! 🫀",
+      "Les émotions difficiles passent, tu vas y arriver ! 🌈",
+      "Tu mérites du repos, d'amour, et du bonheur ! 💕",
+      "Sois fière de qui tu es en ce moment ! 👑",
+      "La puberté est une belle transformation ! ✨",
+      "Tu n'es jamais seule, Djadja est là ! 🦋",
+      "Tes rêves sont importants, poursuivez-les ! 🌟",
+      "Accepte-toi telle que tu es, tu es parfaite ! 💖",
+      "Aujourd'hui est une bonne journée pour t'aimer ! 💜"
+    ];
+
+    function loadThoughtOfDay() {
+      const today = new Date();
+      const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
+      const thoughtIndex = dayOfYear % thoughtsOfDay.length;
+      document.getElementById('thoughtOfDay').textContent = thoughtsOfDay[thoughtIndex];
+    }
+
+    window.addEventListener('load', loadThoughtOfDay);
 
     function checkJournalPin() {
       const journalCode = localStorage.getItem('journalCode');
