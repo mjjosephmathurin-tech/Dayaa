@@ -868,8 +868,10 @@
         <div class="buttons-row">
           <button class="btn-secondary btn-evolution" onclick="showDjadja('T\'es curieuse ! J\'adore ça ! 🌱')">🌱 Évolution</button>
           <button class="btn-secondary btn-quiz" onclick="showDjadja('Teste tes connaissances ! 🎮')">🎮 Quiz</button>
-          <button class="btn-secondary" onclick="checkJournalPin()" style="background: linear-gradient(135deg, #DDD6FE, #E9D5FF); width: 100%; padding: 16px; font-size: 14px; font-weight: 600; margin: 12px 0;">📔 Journal Intime 🔐</button>
         </div>
+        
+        <!-- BOUTON JOURNAL FULL-WIDTH -->
+        <button class="btn-secondary" onclick="checkJournalPin()" style="background: linear-gradient(135deg, #FCE7F3, #F8BBD0); width: calc(100% - 24px); padding: 16px 12px; font-size: 14px; font-weight: 700; margin: 12px; display: block; color: #EC4899;">📔 Journal Intime Privé 🔐</button>
       </div>
 
       <div class="page" id="page-stock">
@@ -1991,6 +1993,12 @@
     }
 
     function showDjadja(message) {
+      // DJADJA NE S'AFFICHE QUE SUR L'ACCUEIL
+      const currentPage = document.querySelector('.page.active');
+      if (!currentPage || currentPage.id !== 'page-accueil') {
+        return; // Ne pas afficher sur les autres pages
+      }
+
       clearTimeout(djadjaTimeout);
       const popup = document.getElementById('djadjaPopup');
       popup.classList.remove('hiding');
