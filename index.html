@@ -2036,12 +2036,12 @@
       const modal = document.getElementById('editDateModal');
       const currentDate = localStorage.getItem('firstPeriodDate');
       document.getElementById('editFirstPeriodDate').value = currentDate || '';
-      modal.classList.add('active');
+      modal.classList.add('open');
     }
 
     function closeEditDateModal() {
       const modal = document.getElementById('editDateModal');
-      modal.classList.remove('active');
+      modal.classList.remove('open');
     }
 
     function confirmEditDate() {
