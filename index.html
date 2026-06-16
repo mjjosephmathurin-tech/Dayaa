@@ -2005,13 +2005,12 @@
         return;
       }
       
-      const date = new Date(dateInput);
-      data.firstPeriodDate = dateInput;
-      localStorage.setItem('dayaaData', JSON.stringify(data));
       localStorage.setItem('firstPeriodDate', dateInput);
-      
       showDjadja('Parfait ! Je vais te prédire tes prochaines règles ! 💜');
-      displayCalendrier();
+      
+      setTimeout(() => {
+        displayCalendrier();
+      }, 500);
     }
 
     function showFirstPeriodDateEdit() {
