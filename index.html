@@ -868,7 +868,7 @@
         <div class="buttons-row">
           <button class="btn-secondary btn-evolution" onclick="showDjadja('T\'es curieuse ! J\'adore ça ! 🌱')">🌱 Évolution</button>
           <button class="btn-secondary btn-quiz" onclick="showDjadja('Teste tes connaissances ! 🎮')">🎮 Quiz</button>
-          <button class="btn-secondary" onclick="checkJournalPin()" style="background: linear-gradient(135deg, #DDD6FE, #E9D5FF);">📔 Journal</button>
+          <button class="btn-secondary" onclick="checkJournalPin()" style="background: linear-gradient(135deg, #DDD6FE, #E9D5FF); width: 100%; padding: 16px; font-size: 14px; font-weight: 600; margin: 12px 0;">📔 Journal Intime 🔐</button>
         </div>
       </div>
 
@@ -1881,7 +1881,11 @@
       localStorage.setItem('currentEmotion', emotion);
       localStorage.setItem('emotionMessage', message);
       
-      showDjadja(message);
+      // Djadja ne s'affiche QUE sur l'accueil
+      const currentPage = document.querySelector('.page.active');
+      if (currentPage && currentPage.id === 'page-accueil') {
+        showDjadja(message);
+      }
     }
 
     function handleModule(name, icon) {
