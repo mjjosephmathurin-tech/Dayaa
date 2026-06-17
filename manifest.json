@@ -1,107 +1,18 @@
 {
-  "name": "Dayaa — Accompagnement Puberté & Hygiène",
+  "name": "Dayaa — Accompagnement Puberté",
   "short_name": "Dayaa",
-  "description": "Application d'accompagnement pour les filles 9-13 ans sur la puberté, les règles, l'hygiène, et bien-être",
+  "description": "Application pour accompagner les filles sur la puberté, les règles et l'hygiène",
   "start_url": "/index.html",
-  "scope": "/",
   "display": "standalone",
-  "orientation": "portrait-primary",
-  "background_color": "#FFFFFF",
+  "background_color": "#EDE8F8",
   "theme_color": "#4ECDC4",
-  "categories": ["education", "health", "lifestyle"],
-  "prefer_related_applications": false,
-  "screenshots": [
-    {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 540 720'><rect fill='%23EDE8F8' width='540' height='720'/><text x='270' y='100' font-size='60' text-anchor='middle' fill='%234ECDC4' font-weight='bold'>Dayaa</text><text x='270' y='200' font-size='40' text-anchor='middle' fill='%238B5CF6'>💜 Hormones</text><text x='270' y='280' font-size='35' text-anchor='middle' fill='%232D2D4E'>Tes messagers</text><text x='270' y='320' font-size='35' text-anchor='middle' fill='%232D2D4E'>magiques !</text><circle cx='270' cy='500' r='80' fill='%238B5CF6' opacity='0.2'/><text x='270' y='520' font-size='80' text-anchor='middle' dominant-baseline='middle'>💜</text></svg>",
-      "sizes": "540x720",
-      "type": "image/svg+xml",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1280 720'><rect fill='%23EDE8F8' width='1280' height='720'/><text x='640' y='100' font-size='80' text-anchor='middle' fill='%234ECDC4' font-weight='bold'>Dayaa</text><g transform='translate(200, 300)'><rect fill='%23EDE9FE' width='280' height='200' rx='16'/><text x='140' y='60' font-size='80' text-anchor='middle' dominant-baseline='middle'>💜</text><text x='140' y='130' font-size='28' text-anchor='middle' fill='%237C3AED' font-weight='bold'>Hormones</text></g><g transform='translate(650, 300)'><rect fill='%23CCFBF1' width='280' height='200' rx='16'/><text x='140' y='60' font-size='80' text-anchor='middle' dominant-baseline='middle'>✨</text><text x='140' y='130' font-size='28' text-anchor='middle' fill='%230891B2' font-weight='bold'>Hygiène</text></g></svg>",
-      "sizes": "1280x720",
-      "type": "image/svg+xml",
-      "form_factor": "wide"
-    }
-  ],
+  "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='grad1' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%234ECDC4;stop-opacity:1' /><stop offset='100%' style='stop-color:%238B5CF6;stop-opacity:1' /></linearGradient></defs><rect fill='url(%23grad1)' width='192' height='192' rx='45'/><text x='96' y='96' font-size='120' font-family='system-ui' dominant-baseline='middle' text-anchor='middle' fill='white' font-weight='bold'>🦋</text></svg>",
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%234ECDC4' width='192' height='192'/><text x='50%' y='50%' font-size='120' font-family='system-ui' dominant-baseline='middle' text-anchor='middle' fill='white' font-weight='bold'>🦋</text></svg>",
       "sizes": "192x192",
       "type": "image/svg+xml",
       "purpose": "any"
-    },
-    {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><defs><linearGradient id='grad2' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%234ECDC4;stop-opacity:1' /><stop offset='100%' style='stop-color:%238B5CF6;stop-opacity:1' /></linearGradient></defs><rect fill='url(%23grad2)' width='512' height='512' rx='120'/><text x='256' y='256' font-size='320' font-family='system-ui' dominant-baseline='middle' text-anchor='middle' fill='white' font-weight='bold'>🦋</text></svg>",
-      "sizes": "512x512",
-      "type": "image/svg+xml",
-      "purpose": "any"
-    },
-    {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%234ECDC4' width='192' height='192' rx='45'/><text x='96' y='96' font-size='120' font-family='system-ui' dominant-baseline='middle' text-anchor='middle' fill='white' font-weight='bold'>🦋</text></svg>",
-      "sizes": "192x192",
-      "type": "image/svg+xml",
-      "purpose": "maskable"
-    },
-    {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect fill='%234ECDC4' width='512' height='512' rx='120'/><text x='256' y='256' font-size='320' font-family='system-ui' dominant-baseline='middle' text-anchor='middle' fill='white' font-weight='bold'>🦋</text></svg>",
-      "sizes": "512x512",
-      "type": "image/svg+xml",
-      "purpose": "maskable"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "💜 Hormones",
-      "short_name": "Hormones",
-      "description": "Apprends tout sur les hormones et la puberté",
-      "url": "/index.html?page=hormones",
-      "icons": [
-        {
-          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23EDE9FE' width='192' height='192' rx='45'/><text x='96' y='96' font-size='120' dominant-baseline='middle' text-anchor='middle'>💜</text></svg>",
-          "sizes": "192x192",
-          "type": "image/svg+xml"
-        }
-      ]
-    },
-    {
-      "name": "✨ Hygiène",
-      "short_name": "Hygiène",
-      "description": "Guide complet sur l'hygiène pendant la puberté",
-      "url": "/index.html?page=hygiene",
-      "icons": [
-        {
-          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23CCFBF1' width='192' height='192' rx='45'/><text x='96' y='96' font-size='120' dominant-baseline='middle' text-anchor='middle'>✨</text></svg>",
-          "sizes": "192x192",
-          "type": "image/svg+xml"
-        }
-      ]
-    },
-    {
-      "name": "🎮 Quiz",
-      "short_name": "Quiz",
-      "description": "Teste tes connaissances sur la puberté",
-      "url": "/index.html?page=quiz",
-      "icons": [
-        {
-          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23DDD6FE' width='192' height='192' rx='45'/><text x='96' y='96' font-size='120' dominant-baseline='middle' text-anchor='middle'>🎮</text></svg>",
-          "sizes": "192x192",
-          "type": "image/svg+xml"
-        }
-      ]
-    },
-    {
-      "name": "📔 Journal",
-      "short_name": "Journal",
-      "description": "Écris dans ton journal intime privé",
-      "url": "/index.html?page=journal",
-      "icons": [
-        {
-          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23FCE7F3' width='192' height='192' rx='45'/><text x='96' y='96' font-size='120' dominant-baseline='middle' text-anchor='middle'>📔</text></svg>",
-          "sizes": "192x192",
-          "type": "image/svg+xml"
-        }
-      ]
     }
   ]
 }
