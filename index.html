@@ -1850,27 +1850,32 @@
         return;
       }
 
-      // Sinon c'est pour modifier le profil
-      const data = JSON.parse(localStorage.getItem('profileData') || 'null');
+      // Si c'est pour modifier le profil
+      if (pendingAction === 'edit') {
+        const data = JSON.parse(localStorage.getItem('profileData') || 'null');
+        
+        if (!data) {
+          alert('Aucun profil sauvegardé ! Crée d\'abord un profil.');
+          return;
+        }
 
-      if (!data || pin !== data.pin) {
-        alert('Code incorrect !');
+        if (pin !== data.pin) {
+          alert('Code incorrect ! 🔒');
+          return;
+        }
+
+        closeModal('modalPin');
+        document.getElementById('profileForm').style.display = 'block';
+        document.getElementById('profileDisplay').style.display = 'none';
+        document.getElementById('childName').value = data.name || '';
+        document.getElementById('childBirthDate').value = data.birthDate || '';
+        document.getElementById('parentName').value = data.parentName || '';
+        document.getElementById('parentPhone').value = data.phone || '';
+        document.getElementById('parentEmail').value = data.email || '';
+        document.getElementById('pinCreate').value = data.pin || '';
+        pendingAction = null;
         return;
       }
-
-      closeModal('modalPin');
-      document.getElementById('profileForm').style.display = 'block';
-      document.getElementById('profileDisplay').style.display = 'none';
-      document.getElementById('childName').value = data.name;
-      document.getElementById('childBirthDate').value = data.birthDate;
-      document.getElementById('parentName').value = data.parentName;
-      document.getElementById('parentPhone').value = data.phone;
-      document.getElementById('parentEmail').value = data.email;
-      document.getElementById('pinCreate').value = data.pin;
-      if (data.firstPeriod) {
-        setFirstPeriod(data.firstPeriod);
-      }
-      pendingPin = null;
     }
 
     function calculateAge(birthDate) {
