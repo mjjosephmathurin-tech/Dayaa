@@ -2355,7 +2355,13 @@
     }
 
     function closeModal(id) {
-      document.getElementById(id).classList.remove('open');
+      const modal = document.getElementById(id);
+      modal.classList.remove('open');
+      modal.style.display = 'none';
+      pendingAction = null;
+      // Vider le champ PIN
+      const pinInput = document.getElementById('pinInput');
+      if (pinInput) pinInput.value = '';
     }
 
     function showAvatarPicker() {
