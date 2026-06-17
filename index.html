@@ -2219,8 +2219,7 @@
           alert('Code incorrect ! 🔒');
           return;
         }
-        const modal = document.getElementById('modalPin');
-        modal.style.display = 'none';
+        closeModal('modalPin');
         switchPage('journal', document.querySelectorAll('.nav-item')[1]);
         showDjadja('Bienvenue dans ton journal privé ! 🔒💜');
         loadJournalEntries();
@@ -2364,7 +2363,6 @@
     function closeModal(id) {
       const modal = document.getElementById(id);
       modal.classList.remove('open');
-      modal.style.display = 'none';
       pendingAction = null;
       // Vider le champ PIN
       const pinInput = document.getElementById('pinInput');
