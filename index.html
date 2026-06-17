@@ -2075,8 +2075,7 @@
           alert('Code incorrect ! 🔒');
           return;
         }
-        const modal = document.getElementById('modalPin');
-        modal.style.display = 'none';
+        closeModal('modalPin');
         switchPage('journal', document.querySelectorAll('.nav-item')[1]);
         showDjadja('Bienvenue dans ton journal privé ! 🔒💜');
         loadJournalEntries();
@@ -2104,7 +2103,7 @@
       if (data.firstPeriod) {
         setFirstPeriod(data.firstPeriod);
       }
-      pendingPin = null;
+      pendingAction = null;
     }
 
     function calculateAge(birthDate) {
